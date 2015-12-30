@@ -4,11 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskManager {
+    private List<String> tasks;
+
+    public TaskManager() {
+        tasks = new ArrayList<>();
+    }
+
+    public void addTask(String task) {
+        tasks.add(task);
+    }
+
     public List<String> getTasks() {
-        List<String> tasks = new ArrayList<>();
-        for (int loop = 0; loop < 10; loop++) {
-            tasks.add("task " + loop);
-        }
         return tasks;
     }
 }

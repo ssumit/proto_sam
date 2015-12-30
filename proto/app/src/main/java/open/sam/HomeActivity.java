@@ -7,11 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 public class HomeActivity extends BaseActivity {
 
     private RecyclerView _recyclerView;
     private TaskManager _taskManager;
+    private HomeScreenAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,29 @@ public class HomeActivity extends BaseActivity {
         _recyclerView.setLayoutManager(linearLayoutManager);
 
         // specify an adapter (see also next example)
-        HomeScreenAdapter adapter = new HomeScreenAdapter(_taskManager.getTasks().toArray(new String[_taskManager.getTasks().size()]));
+        adapter = new HomeScreenAdapter(_taskManager.getTasks().toArray(new String[_taskManager.getTasks().size()]));
         _recyclerView.setAdapter(adapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.home_screen_toolbar);
         setSupportActionBar(toolbar);
+        attachListenersForAddingSimpleTodo();
+    }
+
+    private void attachListenersForAddingSimpleTodo() {
+        findViewById(R.id.simple_todo_add_button)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        EditText editText = (EditText) findViewById(R.id.simple_todo_edittext);
+                        String todo = editText.getText().toString().trim();
+                        if (todo.length() > 0) {
+                            _taskManager.addTask(todo);
+                            adapter.setData(_taskManager.getTasks().toArray(new String[_taskManager.getTasks().size()]));
+                            adapter.notifyDataSetChanged();
+                        }
+                        editText.setText("");
+                    }
+                });
     }
 
     @Override

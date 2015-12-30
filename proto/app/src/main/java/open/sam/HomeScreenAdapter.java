@@ -27,6 +27,10 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.Vi
         _data = data;
     }
 
+    public void setData(String[] _data) {
+        this._data = _data;
+    }
+
     // Create new views (invoked by the layout manager)
     @Override
     public HomeScreenAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
