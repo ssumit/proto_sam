@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Singleton;
 
@@ -20,6 +22,7 @@ public class IPManager {
     private NetworkState _currentState;
     private final EventBus _eventBus;
     private final IPHelper _ipHelper;
+    Logger logger = Logger.getLogger(IPManager.class.getSimpleName());
 
     public enum NetworkState {
         CONNECTED, DISCONNECTED
@@ -44,11 +47,15 @@ public class IPManager {
     }
 
     public void onPossibleNetworkChange(final NetworkState networkState) {
+        logger.log(Level.INFO, "on possible network change to be scheduled");
         executorService.execute(new Runnable() {
             @Override
             public void run() {
+                logger.log(Level.INFO, "on possible network change scheduled");
                 if (hasNetworkChanged(networkState)) {
+                    logger.log(Level.INFO, "on network change confirmed");
                     onNetworkStateChange(networkState);
+                    logger.log(Level.INFO, "final answer, is net available: " + isNetworkAvailable());
                 }
             }
         });
@@ -67,12 +74,14 @@ public class IPManager {
     private void onNetworkStateChange(NetworkState newNetworkState) {
         String newIPAddress = getLatestIPAddress();
         boolean fireIPChangeEvent = false;
+        logger.log(Level.INFO, "new network state: " + newNetworkState + " current(old): " + _currentState);
         if (newNetworkState == NetworkState.DISCONNECTED) {
             if (_currentState == NetworkState.CONNECTED) {
                 _activeIPAddress = null;
                 fireIPChangeEvent = true;
             }
         } else {
+            logger.log(Level.INFO, "new ip address: " + newIPAddress + " active ip: " + _activeIPAddress );
             if (newIPAddress != null && (_activeIPAddress == null || !newIPAddress.equals(_activeIPAddress))) {
                 _activeIPAddress = newIPAddress;
                 fireIPChangeEvent = true;

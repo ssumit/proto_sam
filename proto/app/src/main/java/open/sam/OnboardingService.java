@@ -1,5 +1,6 @@
 package open.sam;
 
+import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import javax.inject.Singleton;
@@ -13,6 +14,7 @@ public class OnboardingService {
     }
 
     public ListenableFuture<Void> createAccount(String firstName, String lastName, String emailId) {
-        return null;
+        onboardingComplete = true;
+        return Futures.immediateFuture(null);
     }
 }

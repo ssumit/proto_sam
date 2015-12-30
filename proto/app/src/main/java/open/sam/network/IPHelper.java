@@ -12,14 +12,19 @@ import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class IPHelper {
+
+    Logger logger = Logger.getLogger(IPHelper.class.getSimpleName());
 
     public List<String> getIPAddress() {
         List<String> ipAddresses = new ArrayList<String>();
         try {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface networkInterface : interfaces) {
+                logger.log(Level.INFO, "network interface: " + networkInterface.getDisplayName() + " up: " + networkInterface.isUp());
                 if (networkInterface.isUp()) {
                     List<InetAddress> inetAddresses = Collections.list(networkInterface.getInetAddresses());
                     for (InetAddress inetAddress : inetAddresses) {
@@ -34,7 +39,7 @@ public class IPHelper {
                 }
             }
         } catch (Exception ex) {
-            //unable to get ip address
+            logger.log(Level.SEVERE, "exception", ex);
         }
         return ipAddresses;
     }
