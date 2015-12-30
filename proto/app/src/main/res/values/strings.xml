@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">sam</string>
+    <string name="app_name">Sam</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_email">Email</string>
+    <string name="signup_bottom_button">Enter</string>
 </resources>

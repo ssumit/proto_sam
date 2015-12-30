@@ -6,10 +6,13 @@ import android.support.v7.app.ActionBarActivity;
 
 import javax.inject.Inject;
 
+import dagger.Component;
+
+@Component(dependencies = ApplicationComponent.class, modules = ApplicationModule.class)
 public class BaseActivity extends ActionBarActivity {
 
     @Inject
-    private OnboardingService _onboardingService;
+    private OnboardingService _onboardingService = new OnboardingService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
