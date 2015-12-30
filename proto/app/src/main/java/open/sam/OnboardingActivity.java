@@ -34,9 +34,10 @@ public class OnboardingActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ipManager = SamApplication.getComponent().provideIPManager();
+        _userInfoHelper = SamApplication.getComponent().provideUserInfoHelper();
         _errorStateHelper = new OnboardingScreenErrorStateHelper(OnboardingActivity.this,
                 getSupportFragmentManager());
-        _userInfoHelper = SamApplication.getComponent().provideUserInfoHelper();
         setContentView(R.layout.onboarding_screen);
         _fNameTextView = (TextView) findViewById(R.id.first_name);
         _lNameTextView = (TextView) findViewById(R.id.last_name);

@@ -8,6 +8,8 @@ import android.net.NetworkInfo;
 
 import javax.inject.Inject;
 
+import open.sam.SamApplication;
+
 public class ConnectivityReceiver extends BroadcastReceiver {
 
     @Inject
@@ -15,6 +17,7 @@ public class ConnectivityReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        ipManager = SamApplication.getComponent().provideIPManager();
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
