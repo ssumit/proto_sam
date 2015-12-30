@@ -4,4 +4,12 @@
     <string name="hint_last_name">Last Name</string>
     <string name="hint_email">Email</string>
     <string name="signup_bottom_button">Enter</string>
+    <string name="ok">Ok</string>
+    <string name="not_connected_to_network_title">Network Issue</string>
+    <string name="not_connected_to_network_message">Internet not available</string>
+    <string name="invalid_email_title">Invalid Email</string>
+    <string name="invalid_email_message">Please enter a valid email</string>
+    <string name="please_wait">Please wait</string>
+    <string name="unknown_error_title">Error</string>
+    <string name="unknown_error_message">Please try again</string>
 </resources>
