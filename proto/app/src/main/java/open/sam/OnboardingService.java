@@ -7,10 +7,6 @@ import javax.inject.Singleton;
 public class OnboardingService {
     private boolean onboardingComplete;
 
-    @Inject
-    public OnboardingService() {
-    }
-
     public boolean isOnboardingComplete() {
         return onboardingComplete;
     }
