@@ -25,5 +25,12 @@
         </activity>
 
         <activity android:name=".OnboardingActivity" />
+
+        <receiver android:name=".network.ConnectivityReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 </manifest>
