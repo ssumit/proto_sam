@@ -12,6 +12,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import open.sam.network.IPManager;
+import open.sam.store.KeyValueStore;
+import open.sam.store.KeyValueStoreImpl;
 
 @Module
 public class ApplicationModule {
@@ -23,8 +25,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    OnboardingService provideOnboardingService() {
-        return new OnboardingService();
+    OnboardingService provideOnboardingService(@Named("user_profile_store") KeyValueStore store) {
+        return new OnboardingService(store);
     }
 
     @Provides
@@ -50,5 +52,12 @@ public class ApplicationModule {
     @Named("app_executor")
     ExecutorService provideExecutorService() {
         return Executors.newSingleThreadExecutor();
+    }
+
+    @Provides
+    @Singleton
+    @Named("user_profile_store")
+    KeyValueStore provideKeyValueStore(Context context) {
+        return new KeyValueStoreImpl(context, "user_profile_store");
     }
 }
